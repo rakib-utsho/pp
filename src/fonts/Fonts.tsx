@@ -1,6 +1,6 @@
 import {
   Antic_Slab,
-  Bitcount_Grid_Single,
+  Bitcount_Grid_Double_Ink,
   Gravitas_One,
   Lobster_Two,
   Open_Sans,
@@ -21,7 +21,7 @@ export const playfair = Playfair_Display({
   variable: "--font-playfair",
 });
 
-export const bitcount = Bitcount_Grid_Single({
+export const bitcount = Bitcount_Grid_Double_Ink({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-bitcount",

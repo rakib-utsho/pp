@@ -30,9 +30,14 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${openSans.variable} ${playfair.variable} ${bitcount.variable} ${lobster.variable} ${roboto.variable} ${gravitas.variable} ${rowdies.variable} ${antic.variable} antialiased`}
+        suppressHydrationWarning
       >
         <Suspense fallback={<Loading />}>
-          <CustomThemeProvider attribute="class" defaultTheme="light" enableSystem>
+          <CustomThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem
+          >
             <ReduxProvider>
               {children}
               <Toaster richColors position="top-right" />

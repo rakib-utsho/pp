@@ -1,123 +1,114 @@
-import { FacebookIcon, Github, Linkedin, Mail } from "lucide-react";
-import Link from "next/link";
-import React from "react";
+"use client";
 
-const footerLinks = {
-  product: [
-    { name: "Features", href: "/features" },
-    { name: "Pricing", href: "/pricing" },
-    { name: "Documentation", href: "/docs" },
-    { name: "API", href: "/api" },
-  ],
-  company: [
-    { name: "About", href: "/about" },
-    { name: "Blog", href: "/blog" },
-    { name: "Careers", href: "/careers" },
-    { name: "Contact", href: "/contact" },
-  ],
-  legal: [
-    { name: "Privacy", href: "/privacy" },
-    { name: "Terms", href: "/terms" },
-    { name: "Cookie Policy", href: "/cookies" },
-    { name: "Licenses", href: "/licenses" },
-  ],
-};
+import { motion } from "framer-motion";
+import {
+  Facebook,
+  Twitter,
+  Instagram,
+  Linkedin,
+  Github,
+} from "lucide-react";
 
-const socialLinks = [
-  { name: "Facebook", href: "#", icon: FacebookIcon },
-  { name: "Github", href: "#", icon: Github },
-  { name: "LinkedIn", href: "#", icon: Linkedin },
-  { name: "Email", href: "#", icon: Mail },
-];
+export default function Footer() {
+  const currentYear = new Date().getFullYear();
 
-export const Footer = () => {
   return (
-    // Footer Component
-    <footer className="border-t bg-background w-full mx-auto">
-      {/* Main Div */}
-      <div className="max-w-7xl mx-auto py-12 md-py-16 px-6">
-        {/* Logo and description */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="col-span-2 md:col-span-1">
-            <Link href="/" className="text-lg font-bold">
-              <span className="text-2xl font-bold">Logo</span>
-            </Link>
-            <p className="mt-4 text-sm text-muted-foreground">
-              Building exceptional digital experiences that make a difference.
-            </p>
+    <footer className="bg-white/80 dark:bg-[#0d0d0d]/80  border-t border-gray-200 dark:border-slate-800">
+      <div className="max-w-7xl mx-auto px-4 py-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="flex flex-col space-y-8"
+        >
+          {/* Navigation + Social Links */}
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-sm">
+            {/* Navigation Links */}
+            <nav className="flex flex-wrap justify-center md:justify-start gap-6">
+              <a
+                href="/terms"
+                className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+              >
+                Terms & Conditions
+              </a>
+              <a
+                href="/privacy"
+                className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+              >
+                Privacy Policy
+              </a>
+              <a
+                href="/cookies"
+                className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+              >
+                Cookies
+              </a>
+            </nav>
+
             {/* Social Links */}
-            <div className="flex gap-4 mt-6">
-              {socialLinks.map((social) => (
-                <Link
-                  key={social.name}
-                  href={social.href}
-                  className="mr-4 text-muted-foreground hover:text-primary transition"
-                >
-                  <social.icon className="h-5 w-5" />
-                  <span className="sr-only">{social.name}</span>
-                </Link>
-              ))}
+            <div className="flex items-center justify-center gap-5">
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-500 transition-colors"
+              >
+                <Facebook size={18} />
+              </a>
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-600 dark:text-gray-400 hover:text-sky-500 dark:hover:text-sky-400 transition-colors"
+              >
+                <Twitter size={18} />
+              </a>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-600 dark:text-gray-400 hover:text-pink-500 dark:hover:text-pink-400 transition-colors"
+              >
+                <Instagram size={18} />
+              </a>
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-600 dark:text-gray-400 hover:text-blue-700 dark:hover:text-blue-500 transition-colors"
+              >
+                <Linkedin size={18} />
+              </a>
+              <a
+                href="https://github.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-gray-200 transition-colors"
+              >
+                <Github size={18} />
+              </a>
             </div>
           </div>
 
-          {/* Footer Links */}
-          <div>
-            <h3 className="font-semibold mb-4">Product</h3>
-            <ul className="space-y-3">
-              {footerLinks.product.map((productLink) => (
-                <li key={productLink.name}>
-                  <Link
-                    href={productLink.href}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    {productLink.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          {/* Brand Section */}
+          <div className="text-center">
+            <h2 className="text-5xl md:text-9xl font-extrabold bg-linear-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400 bg-clip-text text-transparent font-bitcount">
+              Rakibutsho<span className="text-red-700 font-mono">.</span>
+            </h2>
           </div>
 
-          {/* Company Links */}
-          <div>
-            <h3 className="font-semibold mb-4">Company</h3>
-            <ul className="space-y-3">
-              {footerLinks.company.map((companyLink) => (
-                <li key={companyLink.name}>
-                  <Link
-                    href={companyLink.href}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    {companyLink.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          {/* Copyright */}
+          <div className="text-center text-sm text-gray-500 dark:text-gray-400">
+            <p>
+              &copy; {currentYear} All rights reserved by{" "}
+              <span className="font-semibold text-gray-700 dark:text-gray-300">
+                Md. Rakibul Islam
+              </span>
+            </p>
           </div>
-          {/* Legal Links */}
-          <div>
-            <h3 className="font-semibold mb-4">Legal</h3>
-            <ul className="space-y-3">
-              {footerLinks.legal.map((legalLink) => (
-                <li key={legalLink.name}>
-                  <Link
-                    href={legalLink.href}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    {legalLink.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* copyright  */}
-        <div className="mt-12 pt-4 border-t">
-          <p className="text-center text-sm text-muted-foreground">
-            © {new Date().getFullYear()}. All rights reserved.
-          </p>
-        </div>
+        </motion.div>
       </div>
     </footer>
   );
-};
+}

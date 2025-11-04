@@ -1,9 +1,9 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "framer-motion";
-import { link } from "fs";
 import { Menu, Moon, Sun, X } from "lucide-react";
 
 const navLinks = [
@@ -61,7 +61,7 @@ export const Navbar = () => {
             transition={{ delay: 0.2 }}
             className="text-2xl bg-linear-to-r from-black/60 via-purple-500 to-blue-600 bg-clip-text text-transparent font-bitcount dark:from-white/75 dark:via-purple-500 dark:to-blue-600 "
           >
-            Rakibul.
+            RakibUtsho<span className="text-red-700 font-mono">.</span>
           </motion.div>
           <div className="hidden md:flex items-center justify-between space-x-8">
             {navLinks.map((link, index) => (

@@ -1,4 +1,5 @@
-import { Footer } from "@/components/Shared/Footer/Footer";
+
+import Footer from "@/components/Shared/Footer/Footer";
 import { Navbar } from "@/components/Shared/Navbar/Navbar";
 import React from "react";
 
@@ -9,7 +10,7 @@ export default function CommonLayout({
     <div>
       <Navbar />
       {children}
-      <Footer />
+      <Footer/>
     </div>
   );
 }
