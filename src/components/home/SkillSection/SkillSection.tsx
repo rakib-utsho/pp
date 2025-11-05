@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { motion } from "framer-motion";
@@ -206,12 +205,12 @@ export default function Skills() {
             <div className="p-3 bg-linear-to-r from-blue-500 to-purple-600 rounded-2xl shadow-lg">
               <Cpu className="w-8 h-8 text-white" />
             </div>
-            <span className="text-lg font-semibold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50 px-4 py-2 rounded-full">
+            <span className="text-lg font-semibold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50 px-4 py-2 rounded-full font-rowdies">
               Tech Stack
             </span>
           </motion.div>
 
-          <h2 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+          <h2 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6 font-lobster">
             Technologies I{" "}
             <span className="bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               Work With
@@ -225,7 +224,7 @@ export default function Skills() {
             className="w-32 h-1.5 bg-linear-to-r from-blue-500 to-purple-500 mx-auto rounded-full mb-6"
           />
 
-          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed font-serif">
             Building exceptional digital experiences with modern technologies
             and frameworks
           </p>
@@ -259,12 +258,12 @@ export default function Skills() {
                     <IconComponent className="w-7 h-7 text-white" />
                   </motion.div>
                   <div>
-                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white font-lobster">
                       {category.title}
                     </h3>
                     <div className="flex items-center gap-2 mt-1">
                       <div className="w-4 h-0.5 bg-linear-to-r from-transparent via-current to-transparent opacity-60" />
-                      <span className="text-sm text-gray-500 dark:text-gray-400">
+                      <span className="text-sm text-gray-500 font-serif dark:text-gray-400">
                         {category.skills.length} technologies
                       </span>
                     </div>
@@ -300,7 +299,7 @@ export default function Skills() {
                                 className="w-8 h-8 object-contain transition-all duration-300 group-hover/skill:scale-110"
                               />
 
-                              <div className="hidden w-8 h-8 rounded-full bg-linear-to-r from-blue-500 to-purple-500 items-center justify-center text-white text-xs font-bold">
+                              <div className="hidden w-8 h-8 rounded-full bg-linear-to-r from-blue-500 to-purple-500 items-center justify-center text-white text-xs font-bold font">
                                 {skill.name.charAt(0)}
                               </div>
                             </div>
@@ -309,7 +308,7 @@ export default function Skills() {
                               className="absolute -top-1 -right-1 w-4 h-4 bg-linear-to-r from-green-400 to-green-500 rounded-full border-2 border-white dark:border-slate-800 shadow-sm"
                             />
                           </div>
-                          <span className="text-sm font-semibold text-gray-700 dark:text-gray-300 text-center leading-tight">
+                          <span className="text-sm font-semibold text-gray-700 dark:text-gray-300 text-center leading-tight font-serif">
                             {skill.name}
                           </span>
                         </>
@@ -351,12 +350,12 @@ export default function Skills() {
           transition={{ delay: 0.8 }}
           className="text-center mt-16"
         >
-          <p className="text-lg text-gray-600 dark:text-gray-400 mb-6">
+          <p className="text-lg text-gray-600 dark:text-gray-400 mb-6 font-serif">
             Continuously learning and adapting to new technologies
           </p>
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-linear-to-r from-blue-500 to-purple-600 rounded-2xl text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-linear-to-r from-blue-500 to-purple-600 rounded-2xl text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 font-serif"
           >
             <Zap className="w-5 h-5" />
             <span>Always Exploring New Tech</span>
