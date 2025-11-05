@@ -1,22 +1,36 @@
-'use client';
+"use client";
 
-import { motion, Variants } from 'framer-motion';
-import { useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
-import { Mail, Phone, MapPin, Send, Linkedin, Github, Twitter } from 'lucide-react';
+import { motion, Variants } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef, useState } from "react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Send,
+  Linkedin,
+  Github,
+  Twitter,
+} from "lucide-react";
 
 export default function Contact() {
   const ref = useRef<HTMLDivElement | null>(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    alert('Thank you for your message! I will get back to you soon.');
-    setFormData({ name: '', email: '', message: '' });
+    alert("Thank you for your message! I will get back to you soon.");
+    setFormData({ name: "", email: "", message: "" });
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -27,7 +41,11 @@ export default function Contact() {
 
   const itemVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] } },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] },
+    },
   };
 
   return (
@@ -56,7 +74,7 @@ export default function Contact() {
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
+          animate={isInView ? "visible" : "hidden"}
           className="grid lg:grid-cols-2 gap-12"
         >
           {/* Contact Info & Social Links */}
@@ -64,9 +82,9 @@ export default function Contact() {
             {/* Contact Info Cards */}
             <div className="space-y-4">
               {[
-                { icon: Mail, label: 'Email', value: 'rakibul@example.com' },
-                { icon: Phone, label: 'Phone', value: '+880 1234-567890' },
-                { icon: MapPin, label: 'Location', value: 'Dhaka, Bangladesh' },
+                { icon: Mail, label: "Email", value: "rakibul@example.com" },
+                { icon: Phone, label: "Phone", value: "+880 1234-567890" },
+                { icon: MapPin, label: "Location", value: "Dhaka, Bangladesh" },
               ].map((item, idx) => {
                 const Icon = item.icon;
                 return (
@@ -79,8 +97,12 @@ export default function Contact() {
                       <Icon className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">{item.label}</p>
-                      <p className="text-gray-900 dark:text-white font-medium">{item.value}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                        {item.label}
+                      </p>
+                      <p className="text-gray-900 dark:text-white font-medium">
+                        {item.value}
+                      </p>
                     </div>
                   </motion.div>
                 );
@@ -89,12 +111,14 @@ export default function Contact() {
 
             {/* Social Links */}
             <div>
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 font-serif">Follow Me</h3>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 font-serif">
+                Follow Me
+              </h3>
               <div className="flex gap-4">
                 {[
-                  { icon: Linkedin, href: 'https://linkedin.com' },
-                  { icon: Github, href: 'https://github.com' },
-                  { icon: Twitter, href: 'https://twitter.com' },
+                  { icon: Linkedin, href: "https://linkedin.com" },
+                  { icon: Github, href: "https://github.com" },
+                  { icon: Twitter, href: "https://twitter.com" },
                 ].map((item, idx) => {
                   const Icon = item.icon;
                   return (
@@ -151,7 +175,7 @@ export default function Contact() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               type="submit"
-              className="w-full px-8 py-4 bg-purple-500 text-white rounded-xl font-semibold hover:bg-purple-600 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 font-serif"
+              className="w-full px-8 py-4 bg-purple-500 text-white rounded-xl font-semibold hover:bg-purple-600 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 font-serif cursor-pointer"
             >
               <Send className="w-5 h-5" /> Send Message
             </motion.button>
