@@ -1,70 +1,79 @@
-'use client';
+"use client";
 
-import { motion, Variants } from 'framer-motion';
-import { useInView } from 'framer-motion';
-import { useRef } from 'react';
-import { ExternalLink, Github, Code2 } from 'lucide-react';
+import { motion, Variants } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
+import { ExternalLink, Github } from "lucide-react";
+import Image from "next/image";
 
 const projects = [
   {
-    title: 'E-Commerce Platform',
+    title: "Education Technology",
     description:
-      'A full-featured e-commerce platform with payment integration, admin dashboard, and real-time inventory management.',
-    tech: ['Next.js', 'Node.js', 'MongoDB', 'Stripe'],
-    image: 'from-blue-500 to-cyan-500',
-    live: '#',
-    github: '#',
+      "DIMCPrep is an online learning platform specifically designed for healthcare professionals preparing for the Diploma in Immediate Care (DIMC) examination.",
+    tech: [
+      "Next.js",
+      "Express.js",
+      "Redux",
+      "Ant-Design",
+      "Node.js",
+      "MongoDB",
+      "Stripe",
+    ],
+    image: "/images/dimcprep.png", // Updated path
+    live: "https://dimcprep.com/",
+    github: "#",
   },
   {
-    title: 'Task Management System',
+    title: "Task Management System",
     description:
-      'Collaborative task management tool with real-time updates, team workspaces, and project tracking capabilities.',
-    tech: ['React', 'Express', 'PostgreSQL', 'Socket.io'],
-    image: 'from-purple-500 to-pink-500',
-    live: '#',
-    github: '#',
+      "Collaborative task management tool with real-time updates, team workspaces, and project tracking capabilities.",
+    tech: ["React", "Express", "PostgreSQL", "Socket.io"],
+    image: "/images/task-management-project.jpg", // Updated path
+    live: "#",
+    github: "#",
   },
   {
-    title: 'Social Media Dashboard',
+    title: "Social Media Dashboard",
     description:
-      'Analytics dashboard for social media metrics with data visualization, scheduled posting, and engagement tracking.',
-    tech: ['Next.js', 'TypeScript', 'Prisma', 'Chart.js'],
-    image: 'from-green-500 to-emerald-500',
-    live: '#',
-    github: '#',
+      "Analytics dashboard for social media metrics with data visualization, scheduled posting, and engagement tracking.",
+    tech: ["Next.js", "TypeScript", "Prisma", "Chart.js"],
+    image: "/images/social-dashboard-project.jpg", // Updated path
+    live: "#",
+    github: "#",
   },
   {
-    title: 'Real Estate Portal',
+    title: "Real Estate Portal",
     description:
-      'Property listing platform with advanced search filters, virtual tours, and appointment scheduling system.',
-    tech: ['React', 'Node.js', 'MongoDB', 'Cloudinary'],
-    image: 'from-orange-500 to-red-500',
-    live: '#',
-    github: '#',
+      "Property listing platform with advanced search filters, virtual tours, and appointment scheduling system.",
+    tech: ["React", "Node.js", "MongoDB", "Cloudinary"],
+    image: "/images/real-estate-project.jpg", // Updated path
+    live: "#",
+    github: "#",
   },
   {
-    title: 'Learning Management System',
+    title: "Learning Management System",
     description:
-      'Online education platform with course management, video streaming, quizzes, and progress tracking.',
-    tech: ['Next.js', 'Go', 'PostgreSQL', 'AWS S3'],
-    image: 'from-yellow-500 to-orange-500',
-    live: '#',
-    github: '#',
+      "Online education platform with course management, video streaming, quizzes, and progress tracking.",
+    tech: ["Next.js", "Go", "PostgreSQL", "AWS S3"],
+    image: "/images/lms-project.jpg", // Updated path
+    live: "#",
+    github: "#",
   },
   {
-    title: 'Weather Application',
+    title: "Weather Application",
     description:
-      'Real-time weather app with location-based forecasts, weather alerts, and interactive maps.',
-    tech: ['React', 'Tailwind', 'OpenWeather API', 'Mapbox'],
-    image: 'from-cyan-500 to-blue-500',
-    live: '#',
-    github: '#',
+      "Real-time weather app with location-based forecasts, weather alerts, and interactive maps.",
+    tech: ["React", "Tailwind", "OpenWeather API", "Mapbox"],
+    image: "/images/weather-app-project.jpg", // Updated path
+    live: "#",
+    github: "#",
   },
 ];
 
 export default function Projects() {
   const ref = useRef<HTMLDivElement | null>(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -90,18 +99,6 @@ export default function Projects() {
       ref={ref}
       className="relative py-24 px-6 sm:px-10 bg-linear-to-br from-white via-blue-50/50 to-white dark:from-purple-950/20 dark:via-slate-950 dark:to-purple-950/20 overflow-hidden"
     >
-      {/* Decorative Glow Orbs */}
-      {/* <motion.div
-        animate={{ y: [0, -20, 0] }}
-        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute -top-20 -left-20 w-96 h-96 bg-linear-to-r from-purple-500/20 to-blue-500/20 blur-3xl rounded-full"
-      />
-      <motion.div
-        animate={{ y: [0, 20, 0] }}
-        transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute bottom-0 right-0 w-[450px] h-[450px] bg-linear-to-tl from-blue-500/20 to-cyan-500/20 blur-3xl rounded-full"
-      /> */}
-
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
@@ -114,7 +111,8 @@ export default function Projects() {
             Featured Projects
           </h2>
           <p className="text-gray-600 dark:text-gray-400 text-lg max-w-2xl mx-auto font-serif">
-            Some of my recent work combining creativity, technology, and precision.
+            Some of my recent work combining creativity, technology, and
+            precision.
           </p>
         </motion.div>
 
@@ -122,7 +120,7 @@ export default function Projects() {
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
+          animate={isInView ? "visible" : "hidden"}
           className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10"
         >
           {projects.map((project, index) => (
@@ -136,25 +134,29 @@ export default function Projects() {
                 rotateY: -2,
               }}
               transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-              className="relative overflow-hidden rounded-3xl p-px bg-linear-to-br from-purple-500/20 via-blue-500/20 to-transparent hover:from-purple-500/50 hover:via-blue-500/50 transition-all duration-500"
+              className="relative overflow-hidden rounded-3xl p-px bg-linear-to-br from-purple-500/20 via-blue-500/20 to-transparent hover:from-purple-500/50 hover:via-blue-500/50 transition-all duration-500 group"
             >
-              <div className="relative h-full bg-white/80 dark:bg-slate-900/70 backdrop-blur-xl rounded-3xl p-6 flex flex-col justify-between transition-all duration-500 group-hover:shadow-2xl">
-                {/* Image Placeholder */}
-                <div
-                  className={`h-48 w-full rounded-xl bg-linear-to-br ${project.image} relative overflow-hidden mb-6`}
-                >
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300" />
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <Code2 className="w-16 h-16 text-white" />
-                  </div>
+              <div className="relative h-full bg-white/80 dark:bg-slate-900/70 backdrop-blur-xl rounded-3xl p-6 flex flex-col transition-all duration-500 group-hover:shadow-2xl">
+                {/* Image Container */}
+                <div className="relative h-48 w-full rounded-xl overflow-hidden mb-6 bg-gray-200 dark:bg-gray-800">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    placeholder="blur"
+                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R"
+                  />
+                  <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-all duration-300" />
                 </div>
 
                 {/* Content */}
-                <div>
+                <div className="flex-1 flex flex-col">
                   <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-purple-500 transition-colors duration-300 font-lobster">
                     {project.title}
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3 font-antic">
+                  <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3 font-antic flex-1">
                     {project.description}
                   </p>
 
@@ -169,7 +171,7 @@ export default function Projects() {
                     ))}
                   </div>
 
-                  <div className="flex gap-4 mt-2 font-serif">
+                  <div className="flex gap-4 mt-auto font-serif">
                     <a
                       href={project.live}
                       target="_blank"
