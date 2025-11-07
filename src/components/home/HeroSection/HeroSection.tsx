@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/purity */
+
 "use client";
 
 import { motion } from "framer-motion";
@@ -15,15 +16,50 @@ import {
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import profileImg from "@/asset/profile.jpg";
+import { HeroProps } from "@/type/types";
 
-export default function Hero() {
+export default function Hero({ profileData }: HeroProps) {
   const [displayedText, setDisplayedText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
-  const fullText = "Full Stack Developer";
+  const [imageError, setImageError] = useState(false);
+
+  const fullText = profileData?.title || "Full Stack Developer";
 
   const scrollToContact = () => {
     const element = document.querySelector("#contact");
     if (element) element.scrollIntoView({ behavior: "smooth" });
+  };
+
+  // Handle CV download
+  const handleDownloadCV = async (e: React.MouseEvent) => {
+    e.preventDefault();
+
+    if (!profileData?.cv) {
+      console.error("CV URL not available");
+      return;
+    }
+
+    try {
+      // Convert Cloudinary preview URL → forced download URL
+      const downloadUrl = profileData.cv.replace(
+        "/upload/",
+        "/upload/fl_attachment/"
+      );
+
+      const response = await fetch(downloadUrl);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "Md_Rakibul_Islam-Resume.pdf"; // rename here
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error downloading CV:", error);
+    }
   };
 
   useEffect(() => {
@@ -34,7 +70,18 @@ export default function Hero() {
       }, 100);
       return () => clearTimeout(timeout);
     }
-  }, [currentIndex]);
+  }, [currentIndex, fullText]);
+
+  // Reset animation when profileData changes
+  useEffect(() => {
+    setDisplayedText("");
+    setCurrentIndex(0);
+    setImageError(false);
+  }, [profileData]);
+
+  const handleImageError = () => {
+    setImageError(true);
+  };
 
   return (
     <section
@@ -79,7 +126,7 @@ export default function Hero() {
                 </h2>
               </div>
               <h1 className="text-4xl md:text-6xl font-bold font-rowdies text-gray-900 dark:text-white">
-                Md. Rakibul Islam
+                {profileData?.name || "Md. Rakibul Islam"}
               </h1>
               <div className="flex items-center gap-2 text-2xl md:text-3xl bg-linear-to-r from-blue-800 to-purple-600 dark:from-purple-400 dark:to-blue-400 bg-clip-text text-transparent font-semibold min-h-10 font-lobster">
                 <Terminal className="w-6 h-6 text-black dark:text-white font-antic" />
@@ -94,15 +141,16 @@ export default function Hero() {
               </div>
               <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
                 <MapPin className="w-5 h-5" />
-                <span className="font-serif">Bangladesh</span>
+                <span className="font-serif">
+                  {profileData?.location || "Dhaka, Bangladesh"}
+                </span>
               </div>
             </div>
 
             <div className="space-y-4">
               <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed font-serif">
-                Passionate about building exceptional digital experiences with
-                modern technologies. Specialized in MERN Stack and expanding
-                expertise in Go.
+                {profileData?.bio ||
+                  "Building modern full stack web applications with React and Node.js"}
               </p>
 
               {/* Tech Stack */}
@@ -133,16 +181,30 @@ export default function Hero() {
                 <Mail className="w-5 h-5 inline-block mr-2" />
                 Hire Me
               </motion.button>
-              <motion.a
-                href="/cv.pdf"
-                download
-                className="px-8 py-3 border-2 border-blue-600 dark:border-purple-400 text-blue-600 dark:text-purple-400 rounded-full font-semibold hover:bg-blue-600 dark:hover:bg-purple-500 hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center font-serif"
+
+              {/* Try both approaches - you can choose one */}
+              <motion.button
+                onClick={handleDownloadCV}
+                className="px-8 py-3 border-2 border-blue-600 dark:border-purple-400 text-blue-600 dark:text-purple-400 rounded-full font-semibold hover:bg-blue-600 dark:hover:bg-purple-500 hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center font-serif cursor-pointer"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <Download className="w-5 h-5 inline-block mr-2" />
                 Download CV
-              </motion.a>
+              </motion.button>
+
+              {/* Alternative: Open in new tab */}
+              {/* <motion.a
+                href={profileData?.cv || "#"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-8 py-3 border-2 border-blue-600 dark:border-purple-400 text-blue-600 dark:text-purple-400 rounded-full font-semibold hover:bg-blue-600 dark:hover:bg-purple-500 hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center font-serif"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Download className="w-5 h-5 inline-block mr-2" />
+                View CV
+              </motion.a> */}
             </div>
           </motion.div>
 
@@ -157,11 +219,17 @@ export default function Hero() {
               {/* Profile Image */}
               <div className="w-full h-full rounded-full border-4 border-blue-500/40 dark:border-purple-500/40 flex items-center justify-center overflow-hidden shadow-xl bg-white dark:bg-gray-900">
                 <Image
-                  src={profileImg}
-                  alt="Profile"
+                  src={
+                    imageError || !profileData?.profileImage
+                      ? profileImg
+                      : profileData.profileImage
+                  }
+                  alt={profileData?.name || "Profile"}
                   width={600}
                   height={600}
                   className="rounded-full object-cover"
+                  onError={handleImageError}
+                  priority
                 />
               </div>
 

@@ -5,82 +5,15 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { ExternalLink, Github } from "lucide-react";
 import Image from "next/image";
+import { ProjectsProps } from "@/type/types";
 
-const projects = [
-  {
-    title: "Education Technology",
-    description:
-      "DIMCPrep is an online learning platform specifically designed for healthcare professionals preparing for the Diploma in Immediate Care (DIMC) examination.",
-    tech: [
-      "Next.js",
-      "Express.js",
-      "Redux",
-      "Ant-Design",
-      "Node.js",
-      "MongoDB",
-      "Stripe",
-    ],
-    image: "/images/dimcprep.png", // Updated path
-    live: "https://dimcprep.com/",
-    github: "#",
-  },
-  {
-    title: "Task Management System",
-    description:
-      "Collaborative task management tool with real-time updates, team workspaces, and project tracking capabilities.",
-    tech: ["React", "Express", "PostgreSQL", "Socket.io"],
-    image: "/images/task-management-project.jpg", // Updated path
-    live: "#",
-    github: "#",
-  },
-  {
-    title: "Social Media Dashboard",
-    description:
-      "Analytics dashboard for social media metrics with data visualization, scheduled posting, and engagement tracking.",
-    tech: ["Next.js", "TypeScript", "Prisma", "Chart.js"],
-    image: "/images/social-dashboard-project.jpg", // Updated path
-    live: "#",
-    github: "#",
-  },
-  {
-    title: "Real Estate Portal",
-    description:
-      "Property listing platform with advanced search filters, virtual tours, and appointment scheduling system.",
-    tech: ["React", "Node.js", "MongoDB", "Cloudinary"],
-    image: "/images/real-estate-project.jpg", // Updated path
-    live: "#",
-    github: "#",
-  },
-  {
-    title: "Learning Management System",
-    description:
-      "Online education platform with course management, video streaming, quizzes, and progress tracking.",
-    tech: ["Next.js", "Go", "PostgreSQL", "AWS S3"],
-    image: "/images/lms-project.jpg", // Updated path
-    live: "#",
-    github: "#",
-  },
-  {
-    title: "Weather Application",
-    description:
-      "Real-time weather app with location-based forecasts, weather alerts, and interactive maps.",
-    tech: ["React", "Tailwind", "OpenWeather API", "Mapbox"],
-    image: "/images/weather-app-project.jpg", // Updated path
-    live: "#",
-    github: "#",
-  },
-];
-
-export default function Projects() {
+export default function Projects({ projectsData }: ProjectsProps) {
   const ref = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.15 },
-    },
+    visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
   };
 
   const itemVariants: Variants = {
@@ -92,6 +25,16 @@ export default function Projects() {
       transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] },
     },
   };
+
+  if (!projectsData || projectsData.length === 0) {
+    return (
+      <section id="projects" className="py-24 text-center">
+        <p className="text-gray-500 dark:text-gray-400 font-serif">
+          No projects available.
+        </p>
+      </section>
+    );
+  }
 
   return (
     <section
@@ -123,33 +66,30 @@ export default function Projects() {
           animate={isInView ? "visible" : "hidden"}
           className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10"
         >
-          {projects.map((project, index) => (
+          {projectsData.map((project) => (
             <motion.div
-              key={index}
+              key={project._id}
               variants={itemVariants}
-              whileHover={{
-                y: -10,
-                scale: 1.03,
-                rotateX: 2,
-                rotateY: -2,
-              }}
+              whileHover={{ y: -10, scale: 1.03, rotateX: 2, rotateY: -2 }}
               transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
               className="relative overflow-hidden rounded-3xl p-px bg-linear-to-br from-purple-500/20 via-blue-500/20 to-transparent hover:from-purple-500/50 hover:via-blue-500/50 transition-all duration-500 group"
             >
               <div className="relative h-full bg-white/80 dark:bg-slate-900/70 backdrop-blur-xl rounded-3xl p-6 flex flex-col transition-all duration-500 group-hover:shadow-2xl">
                 {/* Image Container */}
-                <div className="relative h-48 w-full rounded-xl overflow-hidden mb-6 bg-gray-200 dark:bg-gray-800">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    placeholder="blur"
-                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R"
-                  />
-                  <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-all duration-300" />
-                </div>
+                {project.image && (
+                  <div className="relative h-48 w-full rounded-xl overflow-hidden mb-6 bg-gray-200 dark:bg-gray-800">
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      placeholder="blur"
+                      blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R"
+                    />
+                    <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-all duration-300" />
+                  </div>
+                )}
 
                 {/* Content */}
                 <div className="flex-1 flex flex-col">
@@ -161,7 +101,7 @@ export default function Projects() {
                   </p>
 
                   <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tech.map((tech, i) => (
+                    {project.techStack?.map((tech, i) => (
                       <span
                         key={i}
                         className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-sm font-medium font-serif"
@@ -172,24 +112,28 @@ export default function Projects() {
                   </div>
 
                   <div className="flex gap-4 mt-auto font-serif">
-                    <a
-                      href={project.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 bg-purple-500 text-white rounded-lg font-medium hover:bg-purple-600 transition-colors duration-300"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                      Live Demo
-                    </a>
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:border-purple-500 hover:text-purple-500 transition-colors duration-300"
-                    >
-                      <Github className="w-4 h-4" />
-                      Code
-                    </a>
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 px-4 py-2 bg-purple-500 text-white rounded-lg font-medium hover:bg-purple-600 transition-colors duration-300"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        Live Demo
+                      </a>
+                    )}
+                    {project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 px-4 py-2 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:border-purple-500 hover:text-purple-500 transition-colors duration-300"
+                      >
+                        <Github className="w-4 h-4" />
+                        Code
+                      </a>
+                    )}
                   </div>
                 </div>
 

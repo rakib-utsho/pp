@@ -3,17 +3,10 @@
 import { motion, Variants } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import {
-  Mail,
-  Phone,
-  MapPin,
-  Send,
-  Linkedin,
-  Github,
-  Twitter,
-} from "lucide-react";
+import { Mail, Phone, MapPin, Send, Linkedin, Github, Facebook, BookOpen } from "lucide-react";
+import { SocialLinksProps } from "@/type/types";
 
-export default function Contact() {
+export default function Contact({ socialLinks }: SocialLinksProps) {
   const ref = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [formData, setFormData] = useState({
@@ -48,6 +41,15 @@ export default function Contact() {
     },
   };
 
+  // Map API response to icon + link
+  const socialItems = [
+    { icon: Linkedin, href: socialLinks?.linkedInUrl },
+    { icon: Github, href: socialLinks?.githubUrl },
+    { icon: Facebook, href: socialLinks?.facebookUrl },
+    // Medium doesn't have an icon in lucide-react, fallback to BookOpen or any suitable icon
+    { icon: BookOpen, href: socialLinks?.mediumUrl },
+  ].filter(item => item.href); // remove undefined links
+
   return (
     <section
       id="contact"
@@ -81,7 +83,7 @@ export default function Contact() {
           <motion.div variants={itemVariants} className="space-y-8">
             {/* Contact Info Cards */}
             <div className="space-y-4">
-              {[
+              {[ 
                 { icon: Mail, label: "Email", value: "rakibul@example.com" },
                 { icon: Phone, label: "Phone", value: "+880 1234-567890" },
                 { icon: MapPin, label: "Location", value: "Dhaka, Bangladesh" },
@@ -110,32 +112,30 @@ export default function Contact() {
             </div>
 
             {/* Social Links */}
-            <div>
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 font-serif">
-                Follow Me
-              </h3>
-              <div className="flex gap-4">
-                {[
-                  { icon: Linkedin, href: "https://linkedin.com" },
-                  { icon: Github, href: "https://github.com" },
-                  { icon: Twitter, href: "https://twitter.com" },
-                ].map((item, idx) => {
-                  const Icon = item.icon;
-                  return (
-                    <motion.a
-                      key={idx}
-                      whileHover={{ scale: 1.1, y: -5 }}
-                      href={item.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-4 bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl rounded-xl hover:bg-purple-500 hover:text-white transition-all duration-300 shadow-lg"
-                    >
-                      <Icon className="w-6 h-6" />
-                    </motion.a>
-                  );
-                })}
+            {socialItems.length > 0 && (
+              <div>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 font-serif">
+                  Follow Me
+                </h3>
+                <div className="flex gap-4">
+                  {socialItems.map((item, idx) => {
+                    const Icon = item.icon;
+                    return (
+                      <motion.a
+                        key={idx}
+                        whileHover={{ scale: 1.1, y: -5 }}
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-4 bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl rounded-xl hover:bg-purple-500 hover:text-white transition-all duration-300 shadow-lg"
+                      >
+                        <Icon className="w-6 h-6" />
+                      </motion.a>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
+            )}
           </motion.div>
 
           {/* Contact Form */}

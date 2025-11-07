@@ -27,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${openSans.variable} ${playfair.variable} ${bitcount.variable} ${lobster.variable} ${roboto.variable} ${gravitas.variable} ${rowdies.variable} ${antic.variable} antialiased`}
         suppressHydrationWarning
